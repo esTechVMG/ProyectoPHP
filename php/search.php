@@ -1,11 +1,4 @@
-<?php
-        include_once 'Receta/Receta.php';
-        include_once 'Receta/Ingrediente.php';
-        include_once 'Receta/Imagen.php';
-        include_once 'connection.php';
-        include_once 'utils.php';
-        include_once 'querys.php';
-        
+<?php   
 function getRecetas(&$stmt,&$mbd)
 {
     include 'querys.php';
@@ -98,7 +91,12 @@ function getRecetas(&$stmt,&$mbd)
     $mbd = null;
     return $recetas;
 }
-
+include_once 'Receta/Receta.php';
+include_once 'Receta/Ingrediente.php';
+include_once 'Receta/Imagen.php';
+include_once 'connection.php';
+include_once 'utils.php';
+include_once 'querys.php';
 //Check present variables
 if (isSetAndNotNull($_GET['tipo'])) {
     $tipo = strtoupper($_GET['tipo']);
