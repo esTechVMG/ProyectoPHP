@@ -1,6 +1,6 @@
 <?php
 try{
-    $mbd = new PDO('mysql:host=localhost;dbname=bd_recetas', "root", "1234",array(
+    $mbd = new PDO('mysql:host=localhost;dbname=bd_recetas', "root", "root",array(
         PDO::ATTR_PERSISTENT => true
     ));
     $connected = true;

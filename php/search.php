@@ -1,4 +1,7 @@
 <?php
+        include_once 'Receta/Receta.php';
+        include_once 'Receta/Ingrediente.php';
+        include_once 'Receta/Imagen.php';
         include_once 'connection.php';
         include_once 'utils.php';
         include_once 'querys.php';
@@ -10,6 +13,7 @@
                     $provincia = $_POST['selectprov'];
                     if(checkProvincia($provincia)){
                         if($connected){
+                            
                             $stmt = $mbd->prepare($queryProvincia);
                             $stmt->bindParam(1,$provincia);
                             $stmt->execute();
@@ -20,46 +24,95 @@
                                 $count++;
                             }
                             $stmt=null;
+                            $recetas=array();
                             foreach($rows as $row){
-                                $id = $row['id_receta'];
-                                echo '<div>' .
-                                //$row['id_receta'] . '<br>' . //Do not show on production
-                                $row['titulo'] . '<br>' .
-                                $row['duracion'] . '<br>' .
-                                $row['dificultad'] . '<br>' .
-                                $row['preparacion'] . '<br>' .
-                                $row['horno'] . '<br>' .
-                                $row['batidora'] . '<br>' .
-                                $row['microondas'] . '<br>' .
-                                $row['thermomix'] . '<br>' .
-                                $row['celiacos'] . '<br>' .
-                                $row['light'] . '<br>' .
-                                $row['vegetariana'] . '<br>' .
-                                $row['vegana'] . '<br>' .
-                                //$row['validada'] . '<br>' . //Do not show on production
-                                $row['fecha'] . '<br>' .
-                                $row['comensales'] . '<br>' .
-                                '</div>';
+                                $receta = new Receta();
+                                $receta->id = $row['id_receta'];
+                                $receta->titulo = $row['titulo'];
+                                $receta->dificultad = $row['dificultad'];
+                                $receta->tiempoPrep = $row['duracion'];
+                                $receta->nComensales = $row['comensales'];
+                                $receta->horno = $row['horno'];
+                                $receta->batidora = $row['batidora'];
+                                $receta->microondas = $row['microondas'];
+                                $receta->thermomix = $row['thermomix'];
+                                $receta->vegana = $row['vegana'];
+                                $receta->vegetariana = $row['vegetariana'];
+                                $receta->celiacos = $row['celiacos'];
+                                $receta->light = $row['light'];
                                 
                                 $stmtMainIng = $mbd->prepare($queryMainIngredients);
-                                $stmtMainIng->bindValue(":identifier",$id,PDO::PARAM_STR);
+                                $stmtMainIng->bindValue(":identifier",$receta->id,PDO::PARAM_STR);
                                 $stmtMainIng->execute();
+                                $ingMain=[];
                                 while($row = $stmtMainIng->fetch(PDO::FETCH_ASSOC)){
-                                    var_dump($row);
+                                    $ing = new Ingrediente();
+                                    $ing->id = $row['id_ingred'];
+                                    $ing->nombre = $row['nombre'];
+                                    $ing->calorias = $row['calorias_100g'];
+                                    $ing->proteinas = $row['proteinas_100g'];
+                                    $ing->hidratos = $row['id_ingred'];
+                                    $ing->grasas = $row['grasas_saturadas_100g'];
+                                    $ing->gSaturadas = $row['grasas_saturadas_100g'];
+                                    $ing->gmInsaturadas = $row['grasas_monoinsaturadas_100g'];
+                                    $ing->gpInsaturadas = $row['grasas_poliinsaturadas_100g'];
+                                    $ing->sodio = $row['sodio_100g'];
+                                    $ing->fibras = $row['fibra_100g'];
+
+                                    array_push($ingMain,$ing);
                                 }
+                                $receta->ingPrincipales = $ingMain;
+
                                 $stmtOptIng = $mbd->prepare($queryOptionalIngredients);
-                                $stmtOptIng->bindValue(':identifier',$id,PDO::PARAM_STR);
+                                $stmtOptIng->bindValue(':identifier',$receta->id,PDO::PARAM_STR);
                                 $stmtOptIng->execute();
+                                $ingOpt=[];
                                 while($row = $stmtOptIng->fetch(PDO::FETCH_ASSOC)){
-                                    var_dump($row);
+                                    $ing = new Ingrediente();
+                                    $ing->id = $row['id_ingred'];
+                                    $ing->nombre = $row['nombre'];
+                                    $ing->calorias = $row['calorias_100g'];
+                                    $ing->proteinas = $row['proteinas_100g'];
+                                    $ing->hidratos = $row['id_ingred'];
+                                    $ing->grasas = $row['grasas_saturadas_100g'];
+                                    $ing->gSaturadas = $row['grasas_saturadas_100g'];
+                                    $ing->gmInsaturadas = $row['grasas_monoinsaturadas_100g'];
+                                    $ing->gpInsaturadas = $row['grasas_poliinsaturadas_100g'];
+                                    $ing->sodio = $row['sodio_100g'];
+                                    $ing->fibras = $row['fibra_100g'];
+                                    array_push($ingOpt,$ing);
                                 }
+                                $receta->ingOpcionales = $ingOpt;
                                 $stmtImg = $mbd->prepare($queryImages);
-                                $stmtImg->bindValue(':identifier',$id,PDO::PARAM_STR);
+                                $stmtImg->bindValue(':identifier',$receta->id,PDO::PARAM_STR);
                                 $stmtImg->execute();
+                                $imageList = [];
                                 while($row = $stmtImg->fetch(PDO::FETCH_ASSOC)){
-                                    var_dump($row);
+                                    $image = new Image();
+                                    $image->id = $row['id_imag'];
+                                    $image->name = $row['id_imag'];
+                                    $image->location = $row['ruta'];
+                                    $image->width = $row['ancho'];
+                                    $image->height = $row['alto'];
+                                    $image->description = $row['descripcion'];
+                                    $image->ing_id = $row['ingrediente_id_ingred'];
+                                    $image->id_receta = $row['receta_id_receta'];
+                                    $image->id_rest = $row['restaurante_id_rest'];
+                                    array_push($imageList,$image);
                                 }
+                                $receta->images = $imageList;
+                                array_push($recetas,$receta);
+                                
+                                /*echo '<div>';
+                                
+                                    echo "<h1>" . $row['titulo'] ."</h1>";
+                                    echo '<strong>Ingredientes Principales</strong>';
+                                    
+
+                                echo '</div>';*/
+
                             }
+                            var_dump($recetas);
                         }
                     }else{
                         reportError();
