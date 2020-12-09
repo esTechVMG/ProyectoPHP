@@ -1,0 +1,138 @@
+@charset "utf-8";
+body {
+	background : #C0D9D9 url(../imagenes/mantel.jpg) repeat;
+	font : 8pt Verdana, Geneva, Arial, Helvetica, sans-serif;
+	color : #666666;
+	margin : 20px 0px 20px 0px;
+	text-align: center;
+}
+#cabecera{height : 339px;width: 900px;margin-left:auto;margin-right:auto;background-image: url('../imagenes/banner.png');}
+#login{width: 170px;height: 90px;position: relative;top: 17px;left: 703px;}
+#login p{color: #390;font-family: Arial black;font-size: 14px;margin: 0px;}
+#login a{color:red;}
+#login a:hover{color:#f90;}
+#menu{background-color:#660000;width:900px;height:98px;}
+#menu_gest{ 
+	background-color:#fff;
+	width:555px;height:98px;
+	float:right;
+}
+/*menu*/
+div.fadehover {position: relative;}
+img.a {
+	position: absolute;
+	left: 0;
+	top: 0;
+    z-index: 10;
+	}
+ 
+img.b {
+	position: absolute;
+	left: 0;
+	top: 0;
+	}
+#estiloglosario, #mensajeBienvenida, #nuestraweb,#estiloayuda,#estilonuevouser{width: 718px;float: right;background-color:#fff;text-align: left;}
+p{margin-left: 10px;margin-right: 10px;font-size:15px;}
+#estiloglosario p,#mensajeBienvenida p, #nuestraweb p,#estiloayuda p{margin-left: 10px;margin-right: 10px;}
+#palabraglosario{ border:#000 1px solid; margin-bottom:5px; margin-left:1px; margin-right:1px;}
+#nuestraweb h3, #estiloayuda  h3,.saludo{color:#000;}
+#pie{
+	clear : both;
+	color : #cccccc;
+	text-align : right;
+	margin : 10px 10px 0px 10px;
+	padding-bottom:10px;
+}
+#tablalogicos{ font-size:11px;}
+#menuusuario{ margin-left:25px; text-align:left; }
+#dologin{ font-size:10px; text-align:left;}
+#acceso span{font-size:11px;}
+#saludoAdmin{float:right;width:720px;}
+#lista_res{width: 718px;float: right;background-color:#fff;}
+#estiloreceta{margin-top:10px; margin-bottom:10px; border:#000 solid 1px;width:714px;float:center;background-color:#fff;}
+#estilo_rest{width: 718px;float: right;background-color:#fff;}
+#estilo_rest ul{text-align:left;}
+#descrip_rest{overflow: hidden;width: 100%;float: left;}
+#titulo_principal{background-color:#FFF;}
+#ingredientes{float: left;margin-left: 33px;text-align: left;margin-top: 6px;width:262px;}
+#foto_receta{float: left;text-align: center;clear:both;margin-bottom: 10px;}
+#foto_rest{float: left;text-align: left;margin-right: 10px;}
+A, A:ACTIVE, A:FOCUS, A:LINK, A:VISITED {color : #FFFF33;font-weight: bold;}
+A:HOVER {color: #f90;}
+INPUT {font-size : 8pt;}
+H1{font-size: 17px; text-align:center; color:#000; background-color:#FFF;}
+H2{text-align:left;margin-left:10px;}
+H3{color: #fff;font-size:13px;text-align:center;}
+#borde{
+	border: 2px solid #cccccc;
+	text-align: left;
+	width: 900px;
+	margin: auto;
+}
+#contenedor{ 
+	text-align: center; 
+	width: 900px;
+	margin: auto;
+	background-color : #fff;
+
+}
+#col_izq{width:180px;float:left;padding-top: 20px;background-color: #600;}
+#tituloreceta{ text-align:center;
+font-size:14px; color:#000;background-color:#F5F4C3;
+border-top : 1px solid #cccccc;
+	border-bottom : 1px solid #000;
+}
+#campoform{text-align:center;}	
+#cuerpo{
+	float:left;
+	width:620px;
+	margin-left: 8px;
+	padding: 12px 0px 10px 0px;
+}
+#navabajo{font-weight : bold;}
+#lateral{
+	width: 200px;
+	float:right;
+	background-color: #EBF2FE;
+	border-bottom : 1px solid #cccccc;
+	border-left : 1px solid #cccccc;
+}
+#campotexto{float: left;}
+#campotexto input{width:100px;}
+#fbuscar form{
+	margin-bottom : 0px;
+	margin-top : 0px;
+}
+#botonbuscar {
+	padding-top : 3px;
+	padding-left: 106px;
+}
+#botonbuscar input{border : 0px none;}
+#otras ul{
+	margin : 5px 10px 0px 0px;
+	list-style: none;
+	padding: 0px 0px 0px 4px;
+}
+#otras li{
+	padding-left: 14px; 
+	background: transparent url("images/bullet.gif") 0 2px no-repeat;
+	margin-bottom: 10px;	
+}
+.cuerpolateral{padding: 5px 4px 13px 10px;}
+.titlat{
+	border:#cccccc solid 1px;
+	background-color:#68729E;
+	color:#ffffff;
+	font-size:8pt;
+	text-transform : uppercase;
+	padding: 7px 3px 7px 8px;
+	margin: 0px 0px 8px 0px;
+	font-weight : normal;
+	letter-spacing : 2px;
+}
+#valida_receta{ border: #000 solid 1px; margin-bottom:5px; margin-top:5px; margin-left:1px; margin-right:1px;}
+A.enlacenav, A.enlacenav:VISITED, A.enlacenav:ACTIVE, A.enlacenav:FOCUS, A.enlacenav:LINK{color: #ffff66;}
+A.enlacenav:HOVER{color: #3F7DE3;}
+.radio{clear : both;}
+.formerror{color:red;}
+.formularioValidareceta{ border:#000 solid 1px;}
