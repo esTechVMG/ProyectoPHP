@@ -130,8 +130,6 @@ if (isSetAndNotNull($_GET['tipo'])) {
             $provincia = $_POST['selectprov2'];
             $especialidad = $_POST['selectesp'];
             if (
-                isSetAndNotNull($provincia) &&
-                isSetAndNotNull($especialidad) &&
                 checkProvincia($provincia) &&
                 checkEspecialidad($especialidad)
             ) {
