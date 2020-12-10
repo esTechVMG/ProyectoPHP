@@ -10,7 +10,7 @@ function reportError()
 
 //Checks directly through SQL if the value is registered
 //It does a null check also
-function checkProvincia($var = null)
+function checkProvincia($var)
 {
     include 'connection.php';
     if($connected){
@@ -23,6 +23,7 @@ function checkProvincia($var = null)
         return false;
     }else return false;
 }
+//Valida la especialidad
 function checkEspecialidad($var = null)
 {
     switch ($var) {
@@ -88,7 +89,9 @@ function getRecetas(&$stmt,&$mbd):array
         if(isset($row['light'])){
             $receta->id = $row['light'];
         }
-        
+        //The basic query only gives the identifiers for other tables with other relevant information
+        //This searches in database and stores everything automatically.
+        //It is used for main ingredients, optional ingredients and image data
         $stmtMainIng = $mbd->prepare($queryMainIngredients);
         $stmtMainIng->bindValue(":identifier",$receta->id,PDO::PARAM_STR);
         $stmtMainIng->execute();
@@ -151,9 +154,29 @@ function getRecetas(&$stmt,&$mbd):array
         $receta->images = $imageList;
         array_push($recetas,$receta);
     }
-    $mbd = null;
+    //Sanitize before exit
+    $stmt=null;
+    $mbd=null;
     return $recetas;
 }
-
+//Crea un <div> con la informacion de una receta
+function displayRecetas($recetas)
+{
+    include_once 'Receta/Receta.php';
+    include_once 'Receta/Ingrediente.php';
+    include_once 'Receta/Imagen.php';
+    if(isset($recetas) && !is_null($recetas)){
+        foreach($recetas as $receta){
+            echo '' 
+            .   '<div>'
+            .       '<h2>' . $receta->titulo .'</h2>'
+            .       '<p>Numero de comensales:' . $receta->comensales . '</p>'
+            .       '<p>' . $receta->preparacion . '</p>'
+            .   '</div>'
+            ;
+            
+        }
+    }
+}
 
 ?>
