@@ -47,5 +47,8 @@
 <input name="enviar" id="enviar" type="submit" class="boton" value="BUSCAR!" style="font-size: 14px; font-family: Arial;">
 </form><br/>
 <h3> ULTIMAS 5 RECETAS!:</h3>
-<?php include '../php/ultimasRecetas.php'?>
+<ul>
+	<?php include '../php/lastFive.php'?>
+</ul>
+
 </div>
