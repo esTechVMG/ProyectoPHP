@@ -35,7 +35,8 @@ function checkEspecialidad($var = null)
             return false;
     }
 }
-function getRecetas(&$stmt,&$mbd)
+//This function parses the table received through PDO
+function getRecetas(&$stmt,&$mbd):array
 {
     include 'querys.php';
     $rows=[];

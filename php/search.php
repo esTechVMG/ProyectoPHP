@@ -1,24 +1,42 @@
-<?php   
+<?php
+function displayRecetas($recetas)
+{
+    include_once 'Receta/Receta.php';
+    include_once 'Receta/Ingrediente.php';
+    include_once 'Receta/Imagen.php';
+    if(isset($recetas) && !is_null($recetas)){
+        foreach($recetas as $receta){
+            echo '' 
+            .   '<div>'
+            .       '<h2>' . $receta->titulo .'</h2>'
+            .       '<p>Numero de comensales:' . $receta->comensales . '</p>'
+            .       '<p>' . $receta->preparacion . '</p>'
+            .   '</div>'
+            ;
+            
+        }
+    }
+}
 include_once 'Receta/Receta.php';
 include_once 'Receta/Ingrediente.php';
 include_once 'Receta/Imagen.php';
-include_once 'connection.php';
 include_once 'utils.php';
-include_once 'querys.php';
 //Check present variables
 if (isSetAndNotNull($_GET['tipo'])) {
     $tipo = strtoupper($_GET['tipo']);
+    include 'connection.php';
     switch ($tipo) {
         case "PROVINCIA":
+            
             $provincia = $_POST['selectprov'];
             if (checkProvincia($provincia)) {
                 if ($connected) {
-
+                    include 'querys.php';
                     $stmt = $mbd->prepare($queryProvincia);
                     $stmt->bindParam(1, $provincia);
                     $stmt->execute();
                     $recetas = getRecetas($stmt, $mbd);
-                    var_dump($recetas);
+                    displayRecetas($recetas);
                 }
             } else {
                 reportError();
@@ -32,7 +50,8 @@ if (isSetAndNotNull($_GET['tipo'])) {
             //Also, it should be secure to use the string directly since the string is checked by the switch
             $stmt = $mbd->query('SELECT * FROM receta where ' . strtolower($tipo) . ' = 1');
             $recetas = getRecetas($stmt, $mbd);
-            var_dump($recetas);
+            displayRecetas($recetas);
+            //var_dump($recetas);
             break;
         case "ESPECIAL":
             $provincia = $_POST['selectprov2'];
@@ -46,15 +65,14 @@ if (isSetAndNotNull($_GET['tipo'])) {
                 reportError();
             }
             break;
-        case "LASTNUMBER":
-            $identifier=$_POST['identifier'];
+        case "ULTIMASRECETAS":
+            //This request is for displaying only one item.
+            $identifier=$_GET['identifier'];
             if(is_int($identifier) &&  (1 <= $identifier) && ($identifier <= 5)){
-                $stmt = $mbd->prepare($queryFromID);
-                $stmt->bindParam(1,$identifier);
+                $stmt = $mbd->prepare($queryLastFive);
                 $stmt->execute();
                 $recetas = getRecetas($stmt,$mbd);
-                //This query only receives only one item
-                $receta = $receta[0];
+                displayRecetas($recetas);
                 
             }else{
                 reportError();
@@ -63,9 +81,8 @@ if (isSetAndNotNull($_GET['tipo'])) {
         default:
             //It should not be here as we check valid values before
             reportError();
-            break;
-    }
-} else {
+            break;            
+}} else {
     //Here is supposed to be the code for the search engine
 }
 ?>

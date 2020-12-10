@@ -1,7 +1,6 @@
 <?php
 include_once '../php/utils.php';
 include_once '../php/connection.php';
-//include_once '../php/search.php';
 include_once 'Receta/Receta.php';
 include_once 'Receta/Ingrediente.php';
 include_once 'Receta/Imagen.php';
@@ -15,7 +14,8 @@ if($connected){
 }else{
     reportError();
 }
+$c=0;
 foreach ($recetas as $receta){
-    echo "<li>$receta->titulo</li>";
+    echo '<li><a href="mostrarDBrecetas.php?ultimasrecetas=' . ++$counter . '">' . $receta->titulo . '</a></li>';
 }
 ?>

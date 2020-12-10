@@ -6,5 +6,5 @@ $queryMainIngredients = 'SELECT x.* FROM ingrediente AS x INNER JOIN ingrediente
 $queryOptionalIngredients = 'SELECT x.* FROM ingrediente AS x INNER JOIN ingredientes_opcionales AS y ON x.id_ingred=y.id_ingred WHERE y.id_receta = :identifier';
 $queryImages = 'SELECT * FROM imagen WHERE receta_id_receta = :identifier';
 $queryFromID = 'SELECT * FROM receta WHERE id_receta = ?';
-$queryLastFive = "SELECT * FROM receta ORDER BY fecha ASC LIMIT 5";
+$queryLastFive = "SELECT titulo FROM receta ORDER BY fecha ASC LIMIT 5";
 ?>
