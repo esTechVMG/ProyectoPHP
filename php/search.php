@@ -27,7 +27,6 @@ if (isSetAndNotNull($_GET['tipo'])) {
     include 'connection.php';
     switch ($tipo) {
         case "PROVINCIA":
-            
             $provincia = $_POST['selectprov'];
             if (checkProvincia($provincia)) {
                 if ($connected) {
@@ -67,22 +66,25 @@ if (isSetAndNotNull($_GET['tipo'])) {
             break;
         case "ULTIMASRECETAS":
             //This request is for displaying only one item.
-            $identifier=$_GET['identifier'];
+            $identifier=intval($_GET['id']);
             if(is_int($identifier) &&  (1 <= $identifier) && ($identifier <= 5)){
                 $stmt = $mbd->prepare($queryLastFive);
                 $stmt->execute();
                 $recetas = getRecetas($stmt,$mbd);
-                displayRecetas($recetas);
+                displayRecetas(array($recetas[$identifier]));
                 
             }else{
                 reportError();
             }
-            
+            break;
         default:
             //It should not be here as we check valid values before
             reportError();
             break;            
-}} else {
+}
+$stmt=null;
+$mbd=null;
+} else {
     //Here is supposed to be the code for the search engine
 }
 ?>

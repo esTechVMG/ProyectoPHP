@@ -49,19 +49,45 @@ function getRecetas(&$stmt,&$mbd):array
     $recetas= [];
     foreach($rows as $row){
         $receta = new Receta();
-        $receta->id = $row['id_receta'];
-        $receta->titulo = $row['titulo'];
-        $receta->dificultad = $row['dificultad'];
-        $receta->tiempoPrep = $row['duracion'];
-        $receta->nComensales = $row['comensales'];
-        $receta->horno = $row['horno'];
-        $receta->batidora = $row['batidora'];
-        $receta->microondas = $row['microondas'];
-        $receta->thermomix = $row['thermomix'];
-        $receta->vegana = $row['vegana'];
-        $receta->vegetariana = $row['vegetariana'];
-        $receta->celiacos = $row['celiacos'];
-        $receta->light = $row['light'];
+        if(isset($row['id_receta'])){
+            $receta->id = $row['id_receta'];
+        }
+        if(isset($row['titulo'])){
+            $receta->titulo = $row['titulo'];
+        }
+        if(isset($row['dificultad'])){
+            $receta->id = $row['dificultad'];
+        }
+        if(isset($row['duracion'])){
+            $receta->id = $row['duracion'];
+        }
+        if(isset($row['comensales'])){
+            $receta->id = $row['comensales'];
+        }
+        if(isset($row['horno'])){
+            $receta->id = $row['horno'];
+        }
+        if(isset($row['batidora'])){
+            $receta->id = $row['batidora'];
+        }
+        if(isset($row['microondas'])){
+            $receta->id = $row['microondas'];
+        }
+        if(isset($row['thermomix'])){
+            $receta->id = $row['thermomix'];
+        }
+        if(isset($row['vegana'])){
+            $receta->id = $row['vegana'];
+        }
+        if(isset($row['vegetariana'])){
+            $receta->id = $row['vegetariana'];
+        }
+        if(isset($row['celiacos'])){
+            $receta->id = $row['celiacos'];
+        }
+        if(isset($row['light'])){
+            $receta->id = $row['light'];
+        }
         
         $stmtMainIng = $mbd->prepare($queryMainIngredients);
         $stmtMainIng->bindValue(":identifier",$receta->id,PDO::PARAM_STR);

@@ -48,7 +48,7 @@
 </form><br/>
 <h3> ULTIMAS 5 RECETAS!:</h3>
 <ul>
-	<?php include '../php/lastFive.php'?>
+	<?php include './ultimas_recetas.php'?>
 </ul>
 
 </div>
